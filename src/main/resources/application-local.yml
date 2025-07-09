@@ -20,3 +20,18 @@ spring:
 
 server:
   port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.security.auth.config: DEBUG
+    org.springdoc: WARN
+    org.springframework.web.method: WARN
+
+
+springdoc:
+#  override-with-generic-response: false
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
