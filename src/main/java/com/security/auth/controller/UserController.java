@@ -1,9 +1,10 @@
 package com.security.auth.controller;
 
-import com.security.auth.dto.SignupRequest;
+import com.security.auth.dto.SignupReq;
+import com.security.auth.dto.SignupRes;
 import com.security.auth.dto.common.ApiResponse;
+import com.security.auth.dto.common.ResponseCode;
 import com.security.auth.service.UserService;
-import com.security.auth.success.SuccessCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<Void>> signup(@Valid @RequestBody SignupRequest request) {
-        userService.signup(request);
+    public ResponseEntity<ApiResponse<SignupRes>> signup(@Valid @RequestBody SignupReq request) {
+        SignupRes signup = userService.signup(request);
         return ResponseEntity
-                .status(SuccessCode.SIGNUP_SUCCESS.getStatus())
-                .body(ApiResponse.success(null, SuccessCode.SIGNUP_SUCCESS.getCode(), SuccessCode.SIGNUP_SUCCESS.getMessage(), SuccessCode.SIGNUP_SUCCESS.getStatus()));
+                .status(ResponseCode.SIGNUP_SUCCESS.getHttpStatus())
+                .body(ApiResponse.success(ResponseCode.SIGNUP_SUCCESS, signup));
 
     }
 }
