@@ -1,7 +1,9 @@
 package com.security.auth.controller;
 
 import com.security.auth.dto.SignupRequest;
+import com.security.auth.dto.common.ApiResponse;
 import com.security.auth.service.UserService;
+import com.security.auth.success.SuccessCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody SignupRequest request) {
+    public ResponseEntity<ApiResponse<Void>> signup(@Valid @RequestBody SignupRequest request) {
         userService.signup(request);
-        return ResponseEntity.ok("회원가입 성공");
+        return ResponseEntity
+                .status(SuccessCode.SIGNUP_SUCCESS.getStatus())
+                .body(ApiResponse.success(null, SuccessCode.SIGNUP_SUCCESS.getCode(), SuccessCode.SIGNUP_SUCCESS.getMessage(), SuccessCode.SIGNUP_SUCCESS.getStatus()));
+
     }
 }
