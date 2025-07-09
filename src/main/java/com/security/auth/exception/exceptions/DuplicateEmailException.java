@@ -1,9 +1,11 @@
 package com.security.auth.exception.exceptions;
 
+import com.security.auth.exception.ErrorCode;
+
 public class DuplicateEmailException extends RuntimeException {
 
     public DuplicateEmailException() {
-        super("이미 가입된 이메일입니다.");
+        super(ErrorCode.DUPLICATE_EMAIL.getMessage());
     }
 
     public DuplicateEmailException(String message) {
