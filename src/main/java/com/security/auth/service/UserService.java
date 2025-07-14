@@ -1,7 +1,9 @@
 package com.security.auth.service;
 
-import com.security.auth.dto.SignupRequest;
+import com.security.auth.dto.SignupReq;
+import com.security.auth.dto.SignupRes;
 import com.security.auth.entity.User;
+import com.security.auth.exception.exceptions.DuplicateEmailException;
 import com.security.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,9 +18,9 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequest request) {
+    public SignupRes signup(SignupReq request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+            throw new DuplicateEmailException();
         }
 
         String encodedPassword = passwordEncoder.encode(request.getPassword());
@@ -28,7 +30,9 @@ public class UserService {
         user.setPassword(encodedPassword);
         user.setNickname(request.getNickname());
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        return new SignupRes(user.getId());
     }
 }
 
