@@ -35,3 +35,8 @@ springdoc:
     enabled: true
   swagger-ui:
     enabled: true
+
+
+jwt:
+  secret: "your-very-long-secret-key-256-bit-or-more" # 256비트 이상!
+  access-token-validity-in-seconds: 3600
