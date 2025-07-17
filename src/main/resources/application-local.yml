@@ -27,6 +27,7 @@ logging:
     com.security.auth.config: DEBUG
     org.springdoc: WARN
     org.springframework.web.method: WARN
+    org.springframework.security: trace
 
 
 springdoc:
