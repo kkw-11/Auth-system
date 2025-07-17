@@ -1,12 +1,13 @@
 package com.security.auth.entity;
 
+import io.swagger.v3.oas.annotations.info.Contact;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
